@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Packet vs circuit switching · Computer Networks</title>
+<script>try { var t = localStorage.getItem('cn-theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%231E5B8A%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-family=%27Georgia%27 font-size=%2716%27 fill=%27white%27 text-anchor=%27middle%27%3ECN%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Spectral:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/site.css">
+<link rel="stylesheet" href="../../assets/css/sim.css">
+<script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] }, svg: { fontCache: 'global' } };</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha384-KKWa9jJ1MZvssLeOoXG6FiOAZfAgmzsIIfw8BXwI9+kYm0lPCbC6yTQPBC00F1/L" crossorigin="anonymous" async></script>
+</head>
+<body class="sim">
+<header class="sim-top"><div class="in">
+  <a class="back" href="../../index.html#u1-core">← Back to I.3 Network core</a>
+  <p class="ttl">Packet switching (store-and-forward) vs circuit switching</p>
+  <button class="theme-btn" id="theme-btn" type="button">Theme: auto</button>
+</div></header>
+<div class="sim-wrap">
+  <p class="sim-intro">A space–time diagram: each shaded band is one packet being transmitted on a link (its height is the transmission time L/R) and the slope is the propagation delay. With store-and-forward, a router can start sending a packet only after it has received all of it. A circuit instead streams bits straight through at its reserved share of the link.</p>
+  <div class="panel" style="margin-bottom:14px"><div class="opts"><label>Mode <select id="mode"><option value="packet">Packet switching</option><option value="message">Whole message, no segmentation</option><option value="circuit">Circuit switching (FDM/TDM)</option></select></label><label>File size (bits) <input id="F" type="number" value="8000000" style="width:110px"></label><label>Packets <input id="P" type="number" value="4" style="width:60px" min="1" max="40"></label><label>Header per packet (bits) <input id="H" type="number" value="0" style="width:80px"></label><label>Links <input id="links" type="number" value="3" style="width:60px" min="1" max="4"></label></div><div class="opts"><label>Link rate (Mbps) <input id="R" type="number" value="2" style="width:70px"></label><label>Propagation per link (ms) <input id="prop" type="number" value="0" style="width:70px"></label><label>Processing per router (ms) <input id="proc" type="number" value="0" style="width:70px"></label><label>Circuit: FDM channels / TDM slots <input id="slots" type="number" value="8" style="width:70px"></label><label>Circuit setup (ms) <input id="setup" type="number" value="300" style="width:70px"></label><button class="btn" id="apply" type="button">Apply</button><span class="hint">Defaults follow the message-segmentation problem with 4 packets so the bands are visible; set Packets to 800 to reproduce the exam answer (the diagram then summarises).</span></div></div>
+  <div class="controls" id="controls"></div>
+  <p class="kbd-hint">Keyboard: <kbd>Space</kbd> play/pause · <kbd>→</kbd> next step · <kbd>←</kbd> previous step · <kbd>R</kbd> reset</p>
+  <div class="sim-grid">
+    <div>
+      <div class="stage" id="stage"></div>
+      <div class="legend"><span><i style="background:var(--ink)"></i>packet on a link</span><span><i style="background:var(--good)"></i>circuit stream</span><span><i style="background:var(--accent)"></i>setup signalling</span></div>
+    </div>
+    <aside>
+      <div class="panel" style="margin-bottom:12px">
+        <span class="k">What is happening</span>
+        <div class="step-now" id="now"></div>
+        <div class="statebox" id="state"></div>
+      </div>
+      <div class="panel">
+        <span class="k">All steps (click to jump)</span>
+        <ul class="steplist" id="steplist"></ul>
+      </div>
+    </aside>
+  </div>
+  <div id="extra" style="margin-top:16px"></div>
+</div>
+<script src="../../assets/js/sim-core.js"></script>
+<script src="switching.js"></script>
+</body>
+</html>

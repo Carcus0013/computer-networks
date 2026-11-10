@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HTTP timing visualizer · Computer Networks</title>
+<script>try { var t = localStorage.getItem('cn-theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%231E5B8A%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-family=%27Georgia%27 font-size=%2716%27 fill=%27white%27 text-anchor=%27middle%27%3ECN%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Spectral:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/site.css">
+<link rel="stylesheet" href="../../assets/css/sim.css">
+
+</head>
+<body class="sim">
+<header class="sim-top"><div class="in">
+  <a class="back" href="../../index.html#u1-http">← Back to I.10 HTTP</a>
+  <p class="ttl">HTTP request–response timing: non-persistent, parallel, persistent and pipelined</p>
+  <button class="theme-btn" id="theme-btn" type="button">Theme: auto</button>
+</div></header>
+<div class="sim-wrap">
+  <p class="sim-intro">Every TCP connection starts with SYN and SYN-ACK; the browser then sends the HTTP GET with the third handshake segment, and the server returns the object. The running total on the right adds the DNS lookup, each RTT and each object's transmission time.</p>
+  <div class="panel" style="margin-bottom:14px"><div class="opts"><label>Connection mode <select id="mode"><option value="np">Non-persistent, serial</option><option value="npp">Non-persistent, parallel connections</option><option value="p">Persistent, no pipelining</option><option value="pp">Persistent, with pipelining</option></select></label><label>Referenced objects <input id="nobj" type="number" value="3" style="width:70px" min="0" max="12"></label><label>Max parallel connections <input id="par" type="number" value="5" style="width:70px" min="1" max="10"></label></div><div class="opts"><label>RTT to web server (ms) <input id="rtt" type="number" value="20" style="width:80px"></label><label>DNS lookup time (ms, 0 = cached) <input id="dns" type="number" value="56" style="width:80px"></label><label>Transmission time per object (ms) <input id="tt" type="number" value="0" style="width:80px"></label><button class="btn" id="apply" type="button">Apply</button><span class="hint">Defaults reproduce the Kurose problem in Chapter2-Problems: DNS RTTs 4 + 44 + 8 = 56 ms, RTT_HTTP = 20 ms, 3 small objects.</span></div></div>
+  <div class="controls" id="controls"></div>
+  <p class="kbd-hint">Keyboard: <kbd>Space</kbd> play/pause · <kbd>→</kbd> next step · <kbd>←</kbd> previous step · <kbd>R</kbd> reset</p>
+  <div class="sim-grid">
+    <div>
+      <div class="stage" id="stage"></div>
+      <div class="legend"><span><i style="background:var(--ink)"></i>data / request</span><span><i style="background:var(--accent)"></i>reply / ACK</span><span><i style="background:var(--good)"></i>control</span><span><i style="background:var(--bad)"></i>error</span><span><i style="background:var(--mark)"></i>lost / timer</span></div>
+    </div>
+    <aside>
+      <div class="panel" style="margin-bottom:12px">
+        <span class="k">What is happening</span>
+        <div class="step-now" id="now"></div>
+        <div class="statebox" id="state"></div>
+      </div>
+      <div class="panel">
+        <span class="k">All steps (click to jump)</span>
+        <ul class="steplist" id="steplist"></ul>
+      </div>
+    </aside>
+  </div>
+  <div id="extra" style="margin-top:16px"></div>
+</div>
+<script src="../../assets/js/sim-core.js"></script>
+<script src="http.js"></script>
+</body>
+</html>

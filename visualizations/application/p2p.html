@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Client-server vs P2P calculator · Computer Networks</title>
+<script>try { var t = localStorage.getItem('cn-theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%231E5B8A%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-family=%27Georgia%27 font-size=%2716%27 fill=%27white%27 text-anchor=%27middle%27%3ECN%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Spectral:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/site.css">
+<link rel="stylesheet" href="../../assets/css/sim.css">
+<script>window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] }, svg: { fontCache: 'global' } };</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha384-KKWa9jJ1MZvssLeOoXG6FiOAZfAgmzsIIfw8BXwI9+kYm0lPCbC6yTQPBC00F1/L" crossorigin="anonymous" async></script>
+</head>
+<body class="sim">
+<header class="sim-top"><div class="in">
+  <a class="back" href="../../index.html#u1-p2p">← Back to I.14 P2P</a>
+  <p class="ttl">File distribution time: client-server vs peer-to-peer</p>
+  <button class="theme-btn" id="theme-btn" type="button">Theme: auto</button>
+</div></header>
+<div class="sim-wrap">
+  <p class="sim-intro">Enter the file size, the server and peer rates; the calculator evaluates every lower bound, marks the one that decides the answer, and plots both architectures as the number of peers grows.</p>
+  <div class="panel" id="calc"></div>
+</div>
+<script src="../../assets/js/sim-core.js"></script>
+<script src="p2p.js"></script>
+</body>
+</html>

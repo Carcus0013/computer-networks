@@ -1,0 +1,11 @@
+# Course materials stay local: copyrighted textbooks and slides, question papers,
+# and case-study files that contain classmates' contact details.
+COMPUTER NETWORKS/
+WhatsApp Image*
+
+# Personal study log and local tooling
+CN_PROGRESS.md
+.claude/
+.playwright-mcp/
+__pycache__/
+*.pyc

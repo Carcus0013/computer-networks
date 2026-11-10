@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TCP connection simulator · Computer Networks</title>
+<script>try { var t = localStorage.getItem('cn-theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%231E5B8A%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-family=%27Georgia%27 font-size=%2716%27 fill=%27white%27 text-anchor=%27middle%27%3ECN%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Spectral:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/site.css">
+<link rel="stylesheet" href="../../assets/css/sim.css">
+
+</head>
+<body class="sim">
+<header class="sim-top"><div class="in">
+  <a class="back" href="../../index.html#u2-tcp">← Back to II.7 TCP</a>
+  <p class="ttl">TCP: handshake, sequence and ACK numbers, flow control, and close</p>
+  <button class="theme-btn" id="theme-btn" type="button">Theme: auto</button>
+</div></header>
+<div class="sim-wrap">
+  <p class="sim-intro">A complete TCP connection between a client and a server: the three-way handshake with real initial sequence numbers, the client sending a file in MSS-sized segments under the receiver's advertised window (flow control), and the four-segment close with TIME_WAIT. The boxes on the right track the send window and the receive buffer.</p>
+  <div class="panel" style="margin-bottom:14px"><div class="opts"><label>Scenario <select id="preset"><option value="normal">Normal transfer</option><option value="slow">Slow receiving application (flow control, zero window)</option><option value="loss">A segment lost (timeout and cumulative ACK)</option></select></label><label>Client ISN <input id="cisn" type="number" value="1000" style="width:90px"></label><label>Server ISN <input id="sisn" type="number" value="5000" style="width:90px"></label><label>MSS (bytes) <input id="mss" type="number" value="500" style="width:80px"></label><label>File size (bytes) <input id="bytes" type="number" value="2500" style="width:90px"></label><label>RcvBuffer (bytes) <input id="rbuf" type="number" value="1500" style="width:90px"></label><button class="btn" id="apply" type="button">Apply</button><span class="hint">Sequence numbers count bytes. SYN and FIN each use up one sequence number.</span></div></div>
+  <div class="controls" id="controls"></div>
+  <p class="kbd-hint">Keyboard: <kbd>Space</kbd> play/pause · <kbd>→</kbd> next step · <kbd>←</kbd> previous step · <kbd>R</kbd> reset</p>
+  <div class="sim-grid">
+    <div>
+      <div class="stage" id="stage"></div>
+      <div class="legend"><span><i style="background:var(--ink)"></i>data / request</span><span><i style="background:var(--accent)"></i>reply / ACK</span><span><i style="background:var(--good)"></i>control</span><span><i style="background:var(--bad)"></i>error</span><span><i style="background:var(--mark)"></i>lost / timer</span></div>
+    </div>
+    <aside>
+      <div class="panel" style="margin-bottom:12px">
+        <span class="k">What is happening</span>
+        <div class="step-now" id="now"></div>
+        <div class="statebox" id="state"></div>
+      </div>
+      <div class="panel">
+        <span class="k">All steps (click to jump)</span>
+        <ul class="steplist" id="steplist"></ul>
+      </div>
+    </aside>
+  </div>
+  <div id="extra" style="margin-top:16px"></div>
+</div>
+<script src="../../assets/js/sim-core.js"></script>
+<script src="connection.js"></script>
+</body>
+</html>

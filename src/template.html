@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Computer Networks · 23CSE302</title>
+<meta name="description" content="An interactive Computer Networks course for 23CSE302: all three units taught step by step, worked numericals, simulators and a question bank.">
+<script>
+/* apply the saved theme before first paint */
+try { var t = localStorage.getItem('cn-theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%231E5B8A%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-family=%27Georgia%27 font-size=%2716%27 fill=%27white%27 text-anchor=%27middle%27%3ECN%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Spectral:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>
+window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] }, svg: { fontCache: 'global' } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js" integrity="sha384-KKWa9jJ1MZvssLeOoXG6FiOAZfAgmzsIIfw8BXwI9+kYm0lPCbC6yTQPBC00F1/L" crossorigin="anonymous" async></script>
+</head>
+<body>
+<div class="wrap">
+<details class="toc" id="toc" open>
+  <summary>Contents <span class="sum-prog" id="sum-prog"></span></summary>
+  <div class="brand">
+    <div><b>Computer Networks</b><small>23CSE302 · Amrita · Sem V</small></div>
+    <button class="theme-btn" id="theme-btn" type="button" aria-label="Switch colour theme">Theme: auto</button>
+  </div>
+{{TOC}}
+  <div class="progress"><span id="prog-text">0 of {{TOTAL}} topics completed</span><span class="bar"><i id="prog-bar"></i></span></div>
+</details>
+
+<main>
+{{BODY}}
+<p class="srcline" style="margin-top:64px">Built from the materials in your CN_Theory folder. Progress is stored only in this browser (localStorage).</p>
+</main>
+</div>
+<script>{{REGISTRY}}</script>
+<script src="assets/js/site.js"></script>
+<script src="assets/js/solver.js"></script>
+</body>
+</html>

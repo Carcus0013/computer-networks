@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DNS resolution visualizer · Computer Networks</title>
+<script>try { var t = localStorage.getItem('cn-theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%231E5B8A%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-family=%27Georgia%27 font-size=%2716%27 fill=%27white%27 text-anchor=%27middle%27%3ECN%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Spectral:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/site.css">
+<link rel="stylesheet" href="../../assets/css/sim.css">
+
+</head>
+<body class="sim">
+<header class="sim-top"><div class="in">
+  <a class="back" href="../../index.html#u1-dns">← Back to I.13 DNS</a>
+  <p class="ttl">DNS resolution: iterative and recursive queries, with caching</p>
+  <button class="theme-btn" id="theme-btn" type="button">Theme: auto</button>
+</div></header>
+<div class="sim-wrap">
+  <p class="sim-intro">Follow one name lookup through the hierarchy. Each arrow is one DNS message (UDP port 53); the panel shows the resource records each server returns and the delay accumulated. Run it a second time with the cache to see why most lookups never reach a root server.</p>
+  <div class="panel" style="margin-bottom:14px"><div class="opts"><label>Query style <select id="mode"><option value="iterative">Iterative (local DNS does the asking)</option><option value="recursive">Recursive (each server asks the next)</option></select></label><label>Host name <input id="host" type="text" value="gaia.cs.umass.edu" placeholder="" style="width:190px"></label><label>Local DNS cache <select id="cache"><option value="none">Empty</option><option value="tld">Has the .edu TLD server address</option><option value="answer">Already has the answer</option></select></label></div><div class="opts"><label>RTT host↔local (ms) <input id="r1" type="number" value="4" style="width:70px"></label><label>RTT local↔root (ms) <input id="r2" type="number" value="44" style="width:70px"></label><label>RTT local↔TLD (ms) <input id="r3" type="number" value="8" style="width:70px"></label><label>RTT local↔authoritative (ms) <input id="r4" type="number" value="20" style="width:70px"></label><button class="btn" id="apply" type="button">Apply</button><span class="hint">In recursive mode the root↔TLD and TLD↔authoritative round trips are assumed equal to the local↔TLD and local↔authoritative values.</span></div></div>
+  <div class="controls" id="controls"></div>
+  <p class="kbd-hint">Keyboard: <kbd>Space</kbd> play/pause · <kbd>→</kbd> next step · <kbd>←</kbd> previous step · <kbd>R</kbd> reset</p>
+  <div class="sim-grid">
+    <div>
+      <div class="stage" id="stage"></div>
+      <div class="legend"><span><i style="background:var(--ink)"></i>data / request</span><span><i style="background:var(--accent)"></i>reply / ACK</span><span><i style="background:var(--good)"></i>control</span><span><i style="background:var(--bad)"></i>error</span><span><i style="background:var(--mark)"></i>lost / timer</span></div>
+    </div>
+    <aside>
+      <div class="panel" style="margin-bottom:12px">
+        <span class="k">What is happening</span>
+        <div class="step-now" id="now"></div>
+        <div class="statebox" id="state"></div>
+      </div>
+      <div class="panel">
+        <span class="k">All steps (click to jump)</span>
+        <ul class="steplist" id="steplist"></ul>
+      </div>
+    </aside>
+  </div>
+  <div id="extra" style="margin-top:16px"></div>
+</div>
+<script src="../../assets/js/sim-core.js"></script>
+<script src="dns.js"></script>
+</body>
+</html>

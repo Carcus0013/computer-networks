@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Go-Back-N and Selective Repeat · Computer Networks</title>
+<script>try { var t = localStorage.getItem('cn-theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%231E5B8A%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-family=%27Georgia%27 font-size=%2716%27 fill=%27white%27 text-anchor=%27middle%27%3ECN%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Spectral:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="../../assets/css/site.css">
+<link rel="stylesheet" href="../../assets/css/sim.css">
+
+</head>
+<body class="sim">
+<header class="sim-top"><div class="in">
+  <a class="back" href="../../index.html#u2-pipelining">← Back to II.6 GBN and SR</a>
+  <p class="ttl">Pipelined reliable transfer: Go-Back-N vs Selective Repeat</p>
+  <button class="theme-btn" id="theme-btn" type="button">Theme: auto</button>
+</div></header>
+<div class="sim-wrap">
+  <p class="sim-intro">Packets are sent back to back (one every 0.25 time units) and take 1 time unit to cross the channel; ACKs take 1 unit back. The window boxes on the right show the sender's and receiver's view of the sequence numbers at each step.</p>
+  <div class="panel" style="margin-bottom:14px"><div class="opts"><label>Preset <select id="preset"><option value="kurose">Kurose: window 4, pkt2 lost</option><option value="end24">19CSE301 End 2024: frames 4 and 7 lost, N=5</option><option value="mid23">19CSE301 Mid 2023: N=3, pkt2 and ACK3 lost</option><option value="every6">19CSE301 Jan 2023: Go-back-3, every 6th lost</option><option value="acklost">Only an ACK lost</option><option value="custom">Custom (fields below)</option></select></label><label>Protocol <select id="proto"><option value="gbn">Go-Back-N</option><option value="sr">Selective Repeat</option></select></label><label>Window N <input id="win" type="number" value="4" style="width:70px" min="1" max="8"></label><label>Packets <input id="npk" type="number" value="8" style="width:70px" min="1" max="16"></label><label>First number <select id="first"><option value="0">0</option><option value="1">1</option></select></label></div><div class="opts"><label>Lost data transmissions <input id="dloss" type="text" value="2" placeholder="e.g. 2, 5:2" style="width:180px"></label><label>Lost ACKs <input id="aloss" type="text" value="" placeholder="e.g. 3" style="width:150px"></label><label>Lose every k-th transmission (0 = off) <input id="every" type="number" value="0" style="width:70px" min="0"></label><button class="btn" id="apply" type="button">Apply</button><span class="hint">“2” loses the first transmission of packet 2; “5:2” loses its second transmission. ACK losses work the same way for the ACK carrying that number.</span></div></div>
+  <div class="controls" id="controls"></div>
+  <p class="kbd-hint">Keyboard: <kbd>Space</kbd> play/pause · <kbd>→</kbd> next step · <kbd>←</kbd> previous step · <kbd>R</kbd> reset</p>
+  <div class="sim-grid">
+    <div>
+      <div class="stage" id="stage"></div>
+      <div class="legend"><span><i style="background:var(--ink)"></i>data / request</span><span><i style="background:var(--accent)"></i>reply / ACK</span><span><i style="background:var(--good)"></i>control</span><span><i style="background:var(--bad)"></i>error</span><span><i style="background:var(--mark)"></i>lost / timer</span></div>
+    </div>
+    <aside>
+      <div class="panel" style="margin-bottom:12px">
+        <span class="k">What is happening</span>
+        <div class="step-now" id="now"></div>
+        <div class="statebox" id="state"></div>
+      </div>
+      <div class="panel">
+        <span class="k">All steps (click to jump)</span>
+        <ul class="steplist" id="steplist"></ul>
+      </div>
+    </aside>
+  </div>
+  <div id="extra" style="margin-top:16px"></div>
+</div>
+<script src="../../assets/js/sim-core.js"></script>
+<script src="sliding-window.js"></script>
+</body>
+</html>
